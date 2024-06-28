@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar</title>
+    <style>
+      
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            
+            background-color: #333;
+            color: #fff;
+            position:fixed;
+            top:0;
+            left:0;
+            width: 100%;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 50px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        .college-name {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        ul li {
+            margin-right: 20px;
+            position: relative;
+        }
+        ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        ul li ul {
+            display: none;
+            position: absolute;
+            background-color: #444;
+            padding: 20px;
+            top: 100%;
+            left: 0;
+        }
+        ul li:hover ul {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="/images/logo.png" alt="Logo">
+            <span class="college-name">Fergusson College</span>
+        </div>
+        <ul>
+            <li><a href="/SuperAdmin">Home</a></li>
+           <li> <% if (!loggedIn) { %>
+                <a href="/SuperAdmin/Login">Login</a>
+            <% } %></li>
+            <li><a href="/SuperAdmin/Dashboard">Dashboard</a></li>
+            <li>
+                <a href="#">Institute</a>
+                <ul>
+                    <li><a href="/Superadmin/addinstitute">Add Institute</a></li><br>
+                    <li><a href="/SuperAdmin/manage_institute">Show Institute</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Department</a>
+                <ul>
+                    <li><a href="/SuperAdmin/add_department">Add Department</a></li><br>
+                    <li><a href="/SuperAdmin/manage_department">Manage Departments</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Courses</a>
+                <ul>
+                   
+                    <li><a href="/SuperAdmin/view_courses">View Course </a></li><br>
+                    <li><a href="/SuperAdmin/eligible_courses">View Eligible Course </a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Application</a>
+                <ul>
+                    <li><a href="/SuperAdmin/course">Start Application</a></li><br>
+                    <li><a href="/superAdmin/show_applicants">Show Application</a></li><br>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Faculty</a>
+                <ul>
+                    <li><a href="/SuperAdmin/addfaculty">Add faculty</a></li><br>
+                    <li><a href="/SuperAdmin/managefaculty">Manage Faculty</a></li>
+                </ul>
+            </li>
+            <li>
+            <% if (loggedIn) { %>
+                <a href="/SuperAdmin/logout">Logout</a>
+            <% } %></li>
+        </ul>
+    </nav>
+</body>
+</html>

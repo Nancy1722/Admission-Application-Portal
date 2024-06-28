@@ -1,0 +1,213 @@
+<%- include("superAdmin_navbar") %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Super Admin Dashboard</title>
+ 
+  <link rel="stylesheet" href="/styles/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin-top:60px ;
+      padding: 20px;
+    }
+
+    .title {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .card-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      text-align: center;
+      flex: 1;
+      margin: 0 10px;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .active-applications {
+      background-color: #FFC107;
+    }
+
+    .active-forms {
+      background-color: #28A745;
+    }
+
+    .total-revenue {
+      background-color: #007BFF;
+    }
+
+    .chart-container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .chart-container .chart {
+      width: 48%;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 768px) {
+      .card-container {
+        flex-direction: column;
+      }
+
+      .card {
+        width: 100%;
+        margin: 0 0 20px 0;
+      }
+
+      .chart-container {
+        flex-direction: column;
+      }
+
+      .chart-container .chart {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+
+</head>
+<body>
+  <div class="container mt-5">
+    <h2 class="text-center mb-4"><center>Super Admin Dashboard</center></h2>
+    
+    <!-- Card container to hold all three cards on the same line -->
+    <div class="card-container">
+      <div class="card active-applications">
+        <div class="card-body">
+          <h5 class="card-title">Active Applications</h5>
+          <p class="card-text" id="activeApplications">Loading...</p>
+        </div>
+      </div>
+      <div class="card active-forms">
+        <div class="card-body">
+          <h5 class="card-title">Active Forms</h5>
+          <p class="card-text" id="activeForms">Loading...</p>
+        </div>
+      </div>
+      <div class="card total-revenue">
+        <div class="card-body">
+          <h5 class="card-title">Total Revenue Generated</h5>
+          <p class="card-text" id="totalRevenue">Loading...</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <!-- Container for the pie chart -->
+      <div class="pie-chart-container">
+        <canvas id="myChart" width="400" height="400"></canvas>
+      </div>
+    
+      <!-- Container for the bar chart -->
+      <div class="bar-chart-container">
+        <canvas id="dashboardChart" width="400" height="400"></canvas>
+      </div>
+    </div>
+    <script>
+      // Fetch data for active applications, active forms, and total revenue
+      async function fetchData(endpoint, elementId) {
+        try {
+          const response = await axios.get(endpoint);
+          document.getElementById(elementId).innerText = response.data.value;
+        } catch (error) {
+          console.log('Error fetching data:', error);
+        }
+      }
+  
+      // Fetch data and update the cards and charts on page load
+      async function fetchAndRenderData() {
+        try {
+          // Fetch data for cards
+          await fetchData('/superAdmin/active_applications', 'activeApplications');
+          await fetchData('/superAdmin/active_forms', 'activeForms');
+          await fetchData('/superAdmin/total_revenue', 'totalRevenue');
+  
+          // Fetch data for charts
+          const pieChartDataResponse = await fetch('/superAdmin/user_application_data');
+          const pieChartData = await pieChartDataResponse.json();
+          const labels = pieChartData.labels;
+          const values = pieChartData.values;
+          renderChart(labels, values);
+  
+          const barChartDataResponse = await fetch('/superAdmin/dashboard_data');
+          const barChartData = await barChartDataResponse.json();
+          renderBarChart(barChartData.labels, barChartData.values);
+        } catch (error) {
+          console.log('Error fetching data:', error);
+        }
+      }
+  
+      function renderChart(labels, values) {
+        const ctx = document.getElementById('myChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: labels,
+            datasets: [{
+              data: values,
+              backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#8A2BE2', '#32CD32']
+            }]
+          },
+          options: {
+            title: {
+              display: true,
+              text: 'Active User Applications by Course'
+            }
+          }
+        });
+      }
+  
+      function renderBarChart(labels, values) {
+        const ctx = document.getElementById('dashboardChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Applications',
+              data: values,
+              backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#8A2BE2', '#32CD32']
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      }
+  
+      // Fetch and render data on page load
+      fetchAndRenderData();
+    </script>
+</body>
+</html>

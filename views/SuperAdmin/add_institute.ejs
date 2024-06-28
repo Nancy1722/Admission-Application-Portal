@@ -1,0 +1,85 @@
+<%- include("superAdmin_navbar") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Institute Form</title>
+<style>
+  body {
+            font-family: Arial, sans-serif;
+            background-image: url('/images/fergusson.jpg');
+            background-size: auto;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .container {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+           
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+    h1 {
+            text-align: left;
+            color: #333;
+    }
+  form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  input[type="text"], input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+  }
+  input[type="submit"] {
+            background-color: #4c84af;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+  input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Add Institute</h1>
+<form id="instituteForm" action="/SuperAdmin/addinstitute" method="post">
+  <label for="instituteName"><b>Institute Name<b></label>
+  <input type="text" id="instituteName" name="instituteName" required>
+
+  <label for="address"><b>Address<b></label>
+  <textarea id="address" name="address" required></textarea>
+
+  <label for="location"><b>Location<b></label>
+  <input type="text" id="location" name="location" required>
+
+  <input type="submit" value="Submit">
+</form>
+</div>
+
+
+</body>
+</html>
+<%- include("footer.ejs") %>

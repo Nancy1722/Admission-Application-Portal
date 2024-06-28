@@ -1,0 +1,149 @@
+<%- include("superAdmin_navbar") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Form</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-image: url('fergusson.jpg');
+  background-size: cover;
+  background-position: center;
+  margin: 10;
+  padding: 10;
+}
+
+.container {
+  width: 100%;
+  max-width: 550px; /* Limiting container width */
+  margin: 100px auto; /* Centering the container vertically */
+  margin-top: 0px !important;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: #ccc solid 1px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form {
+  width: 100%;
+  max-width: 400px; /* Limiting form width */
+  margin: 0 auto;
+}
+
+input[type="text"],
+input[type="date"],
+button[type="submit"],
+select {
+  width: calc(100% - 22px); /* Adjusting width to accommodate padding and border */
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button[type="submit"] {
+  background-color: #4c84af;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+h1 {
+  margin-top: 0 px; /* Adjusting margin for the header */
+  text-align: center; /* Centering the header */
+}
+</style>
+</head>
+<body>
+  <h1 style="margin-top: 100px;"><b><center>Start Application Forms</center></b></h1>
+
+    <div class="container">
+      <form id="courseForm" action="/SuperAdmin/course" method="post">
+        <label for="academicYear">Academic Year:</label>
+        <input type="text" id="academicYear" name="academicYear" required>
+
+        <label>Select a Course</label>
+        <select id="courseSelect" name="courseName">
+          <% courses.forEach(course => { %>
+            <option value="<%= course %>"><%= course %></option>
+          <% }); %>
+        </select>
+
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" required>
+        <br><br>
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" required>
+        <br><br>
+        <button type="submit">Submit</button>
+      </form>
+      <br>
+    </div>
+    <br><br><br>
+
+    <script>
+      document.getElementById("courseForm").onsubmit = async function(event) {
+        event.preventDefault(); // Prevent form submission
+    
+        var academicYear = document.getElementById("academicYear").value;
+        var courseName = document.getElementById("courseSelect").value;
+        var startDate = document.getElementById("startDate").value;
+        var endDate = document.getElementById("endDate").value;
+    
+        var formData = {
+          academicYear: academicYear,
+          courseName: courseName,
+          startDate: startDate,
+          endDate: endDate
+        };
+    
+        fetch('/SuperAdmin/course', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                // Form submission successful
+                showAlert(data.message, true);
+                window.location.reload();
+            } else {
+                // Form submission failed
+                showAlert(data.error, false);
+            }
+        })
+        .catch(error => {
+            console.error('Error adding course:', error);
+            showAlert('An error occurred while adding the course. Please try again later.', false);
+        });
+      };
+    
+      function showAlert(message, isSuccess) {
+        if (isSuccess) {
+          alert(message);
+        } else {
+          alert("Error: " + message);
+        }
+      }
+    </script>
+    
+    
+</body>
+</html>
+<%- include("footer") %>

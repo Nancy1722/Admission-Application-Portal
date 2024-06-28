@@ -1,0 +1,153 @@
+<%- include("superAdmin_navbar") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Applicants</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="stylesheet" href="/styles/search.css">
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            padding: 20px;
+            margin-left: 1px; /* Adjust this value as needed */
+        }
+
+        h2 {
+            margin-top: 50px;
+            text-align: center;
+            color: #007bff;
+        }
+
+        /* Table styles */
+        table {
+            width: 1000px;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: #333 2px solid;
+            padding: 12px;
+            text-align: left;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        tbody tr:hover {
+            background-color: #e9ecef;
+        }
+
+       
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Show Application Forms</h2>
+    <div class="button-container">
+        <button onclick="sendPendingEmails()">Send Emails to Pending Applications</button>
+    </div>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search by Course Name"> <!-- New input for course name -->
+        <button onclick="search()">Search</button>
+    </div>
+    <table id="Table">
+        <!-- Table headers -->
+        <thead>
+            <tr>
+                <th class="user_id">User ID</th>
+                <th class="Applicant">Name</th>
+                <th class="name">Course Name</th>
+                <th class="email">Email ID</th>
+                <th class="application_id">Application ID</th>
+                <th class="fees">Fees (Paid/Unpaid)</th>
+                <th class="fees">Form Status</th>
+                <th class="action">Action</th></b>
+            </tr>
+        </thead>
+        <!-- Table body -->
+        <tbody>
+            <% applicants.forEach(applicant => { %>
+            <tr>
+                <td><%= applicant.user_id %></td>
+                <td><%= applicant.full_name %></td>
+                <td><%= applicant.course_applied %></td>
+                <td><%= applicant.email %></td>
+                <td><%= applicant.application_id %></td>
+                <td><%= applicant.payment_status ? 'Paid' : 'Unpaid' %></td>
+                <td><%= applicant.payment_gateway %></td>
+                <td>
+                    <button class="edit-button" onclick="sendApplicationId('<%= applicant.application_id %>')">
+                        <img src="/images/tick.png" alt="">
+                    </button>
+                    
+                   
+                </td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+
+<script>
+      function sendApplicationId(application_id) {
+    fetch('/application', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ application_id: application_id }) // Corrected parameter name
+    })
+    .then(response => {
+        if (response.ok) {
+            alert("Email sent and status confirmed!");
+            window.location.reload();
+        } else {
+            throw new Error('Failed to send email and confirm status.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while sending email and confirming status.');
+    });
+}
+
+    
+
+
+
+    function search() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("Table");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2]; // Column index for Name
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>
+<%- include("footer") %>

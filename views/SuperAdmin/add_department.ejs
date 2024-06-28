@@ -1,0 +1,135 @@
+<%- include("superAdmin_navbar") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Department Form</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/images/fergusson.jpg');
+            /* Replace 'background.jpg' with the path to your background image */
+            background-size: auto;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .container {
+            
+            max-width: 500px;
+            max-height: 400px;
+            margin: 120px auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: left;
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        input[type="text"] ,select{
+            width: 500px;
+            padding: 8px;
+            box-sizing: border-box;
+            padding-bottom: 10px;
+        }
+
+        button[type="submit"] {
+    
+    border: none;
+    width: 100%;
+    padding: 8px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #4c84af;
+
+    border: none;
+    cursor: pointer;
+   
+}
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+.hidden {
+    display: none;
+}
+
+.error-message {
+    color: #ff0000;
+}
+
+.success-message {
+    color: #00ff00;
+}
+
+        #error-message,
+        #success-message {
+            display: none;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        #error-message {
+            color: #dc3545;
+        }
+
+        #success-message {
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form id="department-form" action="/SuperAdmin/add_department" method="post" >
+        <center><h1>Add Department</h1></center>
+        <label><b>Select Institute</b> </label>
+        <select id="institute_select" name ="institute_name">
+          <% institutes.forEach(institute => { %>
+            <option value="<%= institute %>"><%= institute %></option>
+          <% }); %>
+
+        </select>
+            <b><label for="department-name">Department Name </b></label>
+            <input type="text" id="department-name" name="department_name" required>
+
+           
+          <button  style="margin-top: 20px;"   type="submit">Submit</button>
+        </form>
+        <div id="error-message">Please fill in all required fields.</div>
+        <div id="success-message">Department details submitted successfully!</div>
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const message = urlParams.get('message');
+
+    if (message) {
+        const popupMessage = document.getElementById('popup-message');
+        if (popupMessage) {
+            popupMessage.textContent = message;
+            popupMessage.classList.remove('hidden');
+        } else {
+            console.error('Element with id "popup-message" not found.');
+        }
+    }
+});
+
+</script>
+    
+</body>
+</html>

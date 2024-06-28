@@ -1,0 +1,89 @@
+<%- include("superAdmin_navbar") %>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Super Admin Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/images/fergusson.jpg');
+            background-size: cover;
+            background-position: center;
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+            background-repeat: no-repeat;
+
+        }
+        
+        .container {
+            margin-top: 200px;
+            width: 300px;
+            margin: 100px auto; /* Center the container vertically and horizontally */
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        
+        
+        input[type="text"],
+        input[type="password"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #4c84af;
+            outline: none;
+        }
+        
+        input[type="submit"] {
+            background-color: #4c84af;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        
+        label {
+            font-weight: bold;
+        }
+        
+        h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        
+        <h2>Super Admin Login</h2>
+
+        <form id="loginForm" action="/superAdmin/login" method="post">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+    
+</body>
+
+</html>
+<%- include ("footer")%>

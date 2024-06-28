@@ -1,0 +1,138 @@
+
+<%- include("superAdmin_navbar") %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faculty Management</title>
+<link rel="stylesheet" href="/styles/styles.css">
+<link rel="stylesheet" href="/styles/search.css">
+<style>
+    /* General styles */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+        color: #333;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    h2 {
+        margin-top: 80px;
+        text-align: center;
+        color: #007bff;
+    }
+
+    /* Table styles */
+    table {
+        width: 1000px;
+        border-collapse: collapse;
+        margin-top: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    th,td{ border: #333 2px solid;
+        padding: 12px;
+        text-align: left
+        ;
+       
+    }
+   
+    th.course_id {
+        width: 50%;
+    }
+    th.course_name {
+        width: 50%;
+    }
+    tbody tr:nth-child(even) {
+        background-color: #f8f9fa;
+    }
+    tbody tr:hover {
+        background-color: #e9ecef;
+    }
+</style>
+</head>
+<body>
+<h2><b><center>Manage Faculty</center></b></h2>
+<div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search by Email Id"> <!-- New input for course name -->
+    <button onclick="search()">Search</button>
+</div>
+<table id="Table">
+    <thead>
+        <tr><b>
+            <th class="user_id">User ID</th>
+            <th class="email">Email-id</th>
+            <th class="contact">Contact</th>
+            <th class="action">Action</th></b>
+        </tr>
+    </thead>
+    <tbody>
+        <% faculty.forEach(function(row) { %>
+        <tr id="row_<%= row.user_id %>">
+            <td><%= row.user_id %></td>
+            <td><%= row.email_id %></td>
+            <td><%= row.contact_no %></td>
+            <td>
+                <button class="edit-button" onclick="editDepartment(this)">
+                    <img src="/images/tick.png" alt="">
+                </button>
+                <button class="no-edit-button" onclick="deleteDepartment('<%= row.user_id %>')">
+                    <img src="/images/cross.png" alt="">
+                </button>
+            </td>
+        </tr>
+        <% }); %>
+    </tbody>
+    
+</table>
+<script>
+function deleteDepartment(userId) {
+    if (confirm("Are you sure you want to delete this department?")) {
+        // Send a DELETE request to the server using AJAX
+        fetch(`/deletefaculty/${userId}`, {
+            method: 'post'
+        })
+        .then(response => {
+            if (response.ok) {
+                // Hide the row instead of removing it
+                const row = document.getElementById(`row_${userId}`);
+                row.style.display = 'none';
+                alert('Faculty deleted successfully!');
+            } else {
+                throw new Error('Failed to delete Faculty');
+            }
+        })
+        .catch(error => {
+            console.error('Error deleting faculty account:', error);
+            alert('Failed to delete faculty account. Please try again later.');
+        });
+    }
+}
+function search() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("Table");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1]; // Column index for Name
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+
+</body>
+</html>

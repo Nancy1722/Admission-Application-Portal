@@ -1,0 +1,220 @@
+<%- include("superAdmin_navbar") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty form</title>
+    <style>
+   
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/images/fergusson.jpg');
+            /* Replace 'background.jpg' with the path to your background image */
+            background-size: auto;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+        }
+        .container {
+            
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-size: contain;
+        }
+
+        h1 {
+            text-align: left;
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+    
+            border: none;
+            width: 100%;
+            padding: 8px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #4c84af;
+
+            border: none;
+            cursor: pointer;
+           
+        }
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        #error-message,
+        #success-message {
+            display: none;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        #error-message {
+            color: #dc3545;
+        }
+
+        #success-message {
+            color: #28a745;
+        }
+
+        .popup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50px;
+    left: 500px;
+    width: 200px;
+    height: 200px;
+    background-color: rgba(250, 247, 247, 0.942);
+   
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+.error-message {
+    color: #ff0000;
+}
+
+.success-message {
+    color: #00ff00;
+}
+    </style>
+</head>
+<body background="/images/fergusson.jpg">
+    <div class="container">
+        <h1>Add Faculty</h1>
+        <form id="faculty-form" method="post" action="/SuperAdmin/addfaculty">
+
+            <label for="email">Email-id:</label>
+            <input type="text" id="email" name="email" required>
+            
+            <label for="contact-no">Contact no.:</label>
+            <input type="text" id="contact-no" name="contact_no" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+
+            <label for="password">Confirm password:</label>
+            <input type="password" id="cpassword" name="cpassword" required><br>
+
+            <br><button type="submit">Submit</button>
+        </form>
+        <div id="error-message">Please fill in all required fields.</div>
+        <div id="success-message">Faculty details submitted successfully!</div>
+    
+    <div id="popup" class="popup hidden">
+        <div class="popup-content" id="popup-content">
+            <button id="close-button" class="close">&times;</button>
+            <div id="popup-message"></div>
+        </div>
+    </div>
+</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const closeButton = document.getElementById('close-button');
+            const popup = document.getElementById('popup');
+            const popupMessage = document.getElementById('popup-message');
+            const errorMessage = "<%= errorMessage %>";
+            const successMessage = "<%= successMessage %>";
+
+            closeButton.addEventListener('click', function() {
+                popup.classList.add('hidden');
+            });
+
+            if (errorMessage.trim() !== '') {
+                popupMessage.innerHTML = '<div class="error-message">' + errorMessage + '</div>';
+                popup.classList.remove('hidden');
+            }
+            if (successMessage.trim() !== '') {
+                popupMessage.innerHTML = '<div class="success-message">' + successMessage + '</div>';
+                popup.classList.remove('hidden');
+            }
+
+            const form = document.getElementById('faculty-form');
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('cpassword');
+            const errorMessageElement = document.getElementById('error-message');
+            const successMessageElement = document.getElementById('success-message');
+
+            form.addEventListener('submit', function(event) {
+                if (!validatePassword()) {
+                    event.preventDefault(); // Prevent form submission if password is invalid
+                    errorMessageElement.style.display = 'block';
+                    successMessageElement.style.display = 'none';
+                } else {
+                    errorMessageElement.style.display = 'none';
+                    successMessageElement.style.display = 'block';
+                }
+            });
+
+            function validatePassword() {
+                const password = passwordInput.value.trim();
+                const confirmPassword = confirmPasswordInput.value.trim();
+
+                if (password.length < 8) {
+                    errorMessageElement.textContent = 'Password must be at least 8 characters long.';
+                    return false;
+                }
+
+                if (password !== confirmPassword) {
+                    errorMessageElement.textContent = 'Passwords do not match.';
+                    return false;
+                }
+
+                return true;
+            }
+        });
+    </script>
+    
+</body>
+</html>
+<%- include("footer") %>
