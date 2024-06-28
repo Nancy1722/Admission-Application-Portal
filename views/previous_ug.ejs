@@ -1,0 +1,132 @@
+<%- include("header.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/styles/navbar.css">
+<title>Education Details Form</title>
+<style>
+    body {
+        
+
+
+        font-family: Arial, sans-serif;
+        background-image: url('/public/images/fergusson.jpg'); /* Change 'fergusson.jpg' to the URL of your desired background image */
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+    .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.8); /* Adding a semi-transparent white background to make the form more readable */
+    }
+    .logo-container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .logo-container img {
+        width: 100px; /* Adjust the width of the logo as needed */
+        height: auto;
+    }
+    .logo-name {
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    input[type="text"], input[type="number"], select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box;
+    }
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    .hsc{
+        text-align:right;
+        color:black;
+        text-decoration:none;
+
+    }
+    .hsc:hover {
+      color : #727272;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo-container">
+        <h1><img src="/images/logo.png" alt="Logo"> </h1><!-- Replace 'logo.png' with the path to your logo image -->
+
+    
+    </div>
+    <h2>Previous Education Details </h2>
+    <form action="http://localhost:8800/previous_edu_ug" method="post">
+        
+    
+
+        <label for="board_uni">School Name:</label>
+        <input type="text" id="board_uni" name="school_name" placeholder="Enter School Name" required>
+        
+        <label for="HSC_Marks">HSC Stream:</label>
+        <select name="stream" id="Stream">
+            <option value="Arts">Arts</option>
+            <option value="Commerce">Commerce</option>
+            <option value="Science">Science</option>  
+          </select>
+
+        <label for="percentage">Percentage:</label>
+        <input type="text" id="percentage" name="percentage" placeholder="Enter Percentage" required>
+       
+        <label for="year_of_passing">Year of Passing:</label>
+        <input type="number" id="year_of_passing" placeholder="Enter Year of Passing" name="year_of_passing" required>
+      
+        <label for="Category">Category:</label>
+        <select name="category" id="category">
+            <option value="General">General</option>
+            <option value="Reserved">Reserved</option>
+            
+          </select>
+
+        <input type="submit" value="Submit" >
+        
+    
+    </form>
+</div>
+<script>
+    function calculatePercentage() {
+        var marksObtained = parseFloat(document.getElementById('marks_obtained').value);
+        var totalMarks = parseFloat(document.getElementById('total_marks').value);
+
+        if (!isNaN(marksObtained) && !isNaN(totalMarks) && totalMarks !== 0) {
+            var percentage = (marksObtained / totalMarks) * 100;
+            document.getElementById('percentage').value = percentage.toFixed(2) + "%";
+        } else {
+            document.getElementById('percentage').value = "";
+        }
+    }
+</script>
+</body>
+</html>
+<%- include("footer.ejs") %>

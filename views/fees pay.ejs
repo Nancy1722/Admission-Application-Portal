@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Fees Payment</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    form {
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    label {
+        font-weight: bold;
+    }
+    select, input[type="text"], input[type="number"], input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box;
+    }
+    input[type="submit"] {
+        background-color: #4c8caf;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #4577a0;
+    }
+    .selected-course {
+        margin-bottom: 10px;
+    }
+    .error-message {
+        color: red;
+        margin-top: 5px;
+    }
+    .logo-container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .logo-container img {
+        width: 100px; /* Adjust the width of the logo */
+        height: auto;
+    }
+</style>
+</head>
+<body>
+<div class="logo-container">
+    <img src="logo.png" alt="Logo"> <!-- Replace 'small_logo.png' with the path to your small logo image -->
+</div>
+<form id="paymentForm" onsubmit="return validateForm()">
+    <div class="selected-course" id="selectedCourse"></div>
+    <label for="course">Select Course Application:</label>
+    <select id="course" name="course">
+        <option value="">Select a course</option>
+        <option value="MSC">MSC - 500</option>
+        <option value="MCS">MCS - 1000</option>
+        <option value="MCA">MCA - 700</option>
+    </select>
+    <label for="name">Full Name:</label>
+    <input type="text" id="name" name="name" required>
+    
+    <label for="cardNumber">Card Number:</label>
+    <input type="text" id="cardNumber" name="cardNumber" placeholder="XXXX-XXXX-XXXX-XXXX" required>
+    <label for="expiry">Expiration Date:</label>
+    <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
+    <label for="cvv">CVV:</label>
+    <input type="number" id="cvv" name="cvv" min="100" max="999" required>
+    <input type="submit" value="Pay Now">
+    <div class="error-message" id="errorMessage"></div>
+</form>
+
+<script>
+    function validateForm() {
+        var course = document.getElementById('course').value;
+        var name = document.getElementById('name').value;
+        var cardNumber = document.getElementById('cardNumber').value;
+        var expiry = document.getElementById('expiry').value;
+        var cvv = document.getElementById('cvv').value;
+        var errorMessage = document.getElementById('errorMessage');
+        
+        errorMessage.innerText = ''; // Clear any previous error messages
+        
+        if (course === "") {
+            errorMessage.innerText = "Please select a course";
+            return false;
+        }
+        
+        if (name.trim() === "") {
+            errorMessage.innerText = "Please enter your full name";
+            return false;
+        }
+        
+        // Validation for card number format
+        var cardNumberPattern = /^\d{4}-\d{4}-\d{4}-\d{4}$/;
+        if (!cardNumberPattern.test(cardNumber)) {
+            errorMessage.innerText = "Please enter a valid card number in the format XXXX-XXXX-XXXX-XXXX.";
+            return false;
+        }
+        
+        // Validation for expiry date format
+        var expiryPattern = /^(0[1-9]|1[0-2])\/\d{2}$/;
+        if (!expiryPattern.test(expiry)) {
+            errorMessage.innerText = "Please enter a valid expiration date in the format MM/YY.";
+            return false;
+        }
+        
+        // Validation for CVV format
+        var cvvPattern = /^\d{3}$/;
+        if (!cvvPattern.test(cvv)) {
+            errorMessage.innerText = "Please enter a valid CVV.";
+            return false;
+        }
+        
+        // If all validations pass, return true to submit the form
+        alert("Payment successful! Thank you.");
+        return true;
+    }
+</script>
+</body>
+</html>

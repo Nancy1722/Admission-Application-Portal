@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Admit Card</title>
+    <style>
+        /* Add your custom styles here */
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+        .admit-card {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .fc-logo {
+            text-align: center;
+        }
+        .fc-logo img {
+            width: 100px;
+        }
+        table {
+            width: 100%;
+        }
+        td {
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+        th {
+            padding: 5px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="admit-card">
+            <div class="fc-logo">
+            <img src="https://th.bing.com/th/id/OIP.F-uTJAuL87ZkdGD-Y1gAyAAAAA?rs=1&pid=ImgDetMain" alt="Logo">
+
+                <h5>Fergusson College</h5>
+            </div>
+            <table>
+                <tbody>
+                    <tr>
+                        <td><b>APPLICATION ID:</b> <%= userData.user_application_id %></td>
+                        <td><b>Course APPLIED:</b> <%= userData.applied_course_name %></td>
+                        <td><b>Course Fees:</b> <%= userData.course_fees %></td>
+                    </tr>
+                    <tr>
+                        <td><b>Student Name:</b> <%= userData.first_name %> <%= userData.middle_name %> <%= userData.last_name %></td>
+                        <td><b>Category:</b> <%= userData.caste %></td> 
+                    </tr>
+                    <tr>
+                        <td><b>Mother's Name:</b> <%= userData.mothers_name %></td>
+                        <td><b>DOB:</b> <%= userData.dob %></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><b>Address:</b> <%= userData.address %></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

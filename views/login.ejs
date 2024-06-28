@@ -1,0 +1,191 @@
+<%- include("header.ejs") %>
+<head>
+  <link rel="stylesheet" href="/styles/navbar.css">
+    <style>
+    .flip-container {
+        display: flex;
+        justify-content: center;
+            margin:10px;
+        perspective: 1000;
+    }
+    .flipper {
+    border:2px solid black;
+      padding: 60px;
+      width: 350px;
+      height:250px;
+      position: relative;
+        background: #f5f5f5;
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        border-radius: 25px;
+        
+        transition: 1.0s;
+        transform-style: preserve-3d;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .login-container {
+            width: 90%;
+        }
+    }
+
+    
+    .front, .back {
+      /*background-color: rgba(0,0,0,.3);*/
+      position: absolute;
+        padding:10px 30px;
+      top: 0;
+      left: 0;
+      right: 0;
+        
+        backface-visibility: hidden;
+    }
+    
+    .front{
+        z-index: 2;
+        /* for firefox 31 */
+        transform: rotateY(0deg);
+        color: black;
+    }
+    
+    .back{
+        transform: rotateY(180deg);
+    }
+    .flip{
+            transform: rotateY(180deg);
+    }
+    input{
+        width:100%;
+        margin-bottom:15px;
+        height:50px;
+        box-sizing: border-box;
+        padding:10px;
+    }
+    
+ 
+
+    .title{
+      text-align: center;
+      color:#653431;
+      
+    }
+    .flipbutton{
+        color:#653431;
+        text-decoration:none;
+        text-align:left !important;
+        margin: 0 5px;
+    }
+    
+    .flipbutton1{
+        text-align:right;
+        color:#653431;
+        text-decoration:none;
+    }
+
+    /* Alignment styles */
+    
+    body, html {
+      height: 80%;
+    }
+    
+    
+
+    .logo {
+        width: 70px;
+    height: 50px;
+    }
+    #flashMessage {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .success {
+      color: green;
+      background-color: lightgreen;
+    }
+
+    .error {
+      color: red;
+      background-color: lightcoral;
+    }
+    .success-animation {
+    /* Define your animation styles */
+    animation-name: example;
+    animation-duration: 2s; /* Adjust the duration as needed */
+}
+
+@keyframes example {
+    0% { /* Define initial styles */
+        /* Add initial styles here */
+    }
+    100% { /* Define final styles */
+        /* Add final styles here */
+    }
+}
+
+
+    </style>
+    </head>
+    <body background="/images/fergusson.jpg">
+        <div class="flip-container">
+          <div class="flipper" id="flipper">
+            <div class="front">
+              <h2 class="title"><img class="logo" src="/images/logo.png">Login</h2>
+              <% if (typeof error !== 'undefined' && error.length > 0) { %>
+                <p><%= error %></p>
+              <% } %>
+          
+          
+              <form id="loginForm" action="http://localhost:8800/login/auth" method="post" >
+                <input type="text" id="username" placeholder="Username" name="username" />
+                <input type="password" id="password" placeholder="Password" name="password"/>
+                <input type="submit" value="Login" />
+              </form>
+              <a class="flipbutton" id="loginButton" href="/forget">Forget Password | </a>
+              <a class="flipbutton1" id="registerButton" href="/signup">Sign up</a>
+            </div>
+            
+            
+        <div class="back">
+          <h1 class="title"><img class="logo" src="/images/logo.png">Reset Password</h1>
+           <!-- Form for sending the OTP -->
+            <form method="POST" action="/forget">
+              <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Email-id" required>
+                <input type="submit" value="Send OTP"/>
+              </div>
+            </form>
+          
+           <!-- Form for resetting the password -->
+            <form method="POST" action="/reset-password">
+              <input type="text" name="otp" placeholder="OTP" required />
+              <input type="password" name="newPassword" placeholder="New Password" required />
+              <input type="password" name="confirmPassword" placeholder="Confirm Password" required />
+              <input type="submit" value="Reset Password"/>
+            </form>
+          </div>
+          <p id="result"></p>
+          <a class="flipbutton" id="registerButton" href="/login "></a>
+        </div>
+      </div></div><br>
+        <script>
+          var loginButton = document.getElementById("loginButton");
+          var registerButton = document.getElementById("registerButton");
+          var loginForm = document.getElementById("loginForm");
+      
+          loginButton.onclick = function() {
+            document.querySelector("#flipper").classList.toggle("flip");
+          };
+      
+          registerButton.onclick = function() {
+            document.querySelector("#flipper").classList.toggle("flip");
+          };
+       
+        </script>
+      </body>
+</html>
+<%- include("footer.ejs") %>

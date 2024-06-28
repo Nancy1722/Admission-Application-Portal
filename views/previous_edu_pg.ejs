@@ -1,0 +1,191 @@
+<%- include("header.ejs") %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/styles/course.css">
+  <link rel="stylesheet" href="/styles/navbar.css">
+
+  <title>Previous Education (PG)</title>
+  <!-- Add your CSS links here -->
+  <style>
+    /* Modal styles */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+      background-repeat: no-repeat;
+    }
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 600px;
+    }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Eligible PG Courses</h1>
+  <h3>(Application Fee: ₹1000 per course)</h3>
+
+  <h2>Art Courses</h2>
+  <% if (activeArtCourses.length > 0) { %>
+    <div id="art-courses-container">
+      <% activeArtCourses.forEach(course => { %>
+        <div class="card">
+          <input type="checkbox" id="<%= course.course_name %>" name="eligible_courses[]" value="<%= course.course_name %>" >
+          <label for="<%= course.course_name %>"><%= course.course_name %></label>
+          <% if (endDatesMap[course.course_name] <currentDate) { %>
+            <p style="color: red;">Application form for this course has not started yet.</p>
+          <% } %>
+        </div>
+      <% }); %>
+    </div>
+  <% } else { %>
+    <p style="color: red;">No eligible Art courses found for the specified criteria.</p>
+  <% } %>
+
+  <h2>Science Courses</h2>
+  <% if (activeScienceCourses.length > 0) { %>
+    <div id="science-courses-container">
+      <% activeScienceCourses.forEach(course => { %>
+        <div class="card">
+          <input type="checkbox" id="<%= course.course_name %>" name="eligible_courses[]" value="<%= course.course_name %>" >
+          <label for="<%= course.course_name %>"><%= course.course_name %></label>
+          <% if (endDatesMap[course.course_name] <currentDate) { %>
+            <p style="color: red;">Application form for this course has not started yet.</p>
+          <% } %>
+        </div>
+      <% }); %>
+    </div>
+  <% } else { %>
+    <p style="color: red;">No eligible Science courses found for the specified criteria.</p>
+  <% } %>
+
+  <center>
+    <p id="total-amount">Total Application Fee: ₹ 0</p>
+    <p><%= category %></p>
+    <!-- Add a form to send total amount to the next page -->
+    <form id="total-amount-form" action="http://localhost:8800/personal_info" method="get">
+      <input type="hidden" id="total-amount-input" name="total_amount">
+      <input type="hidden" id="selected-courses-input" name="selected_courses">
+      <button type="button" id="proceed-btn">Proceed to Next</button>
+    </form>
+  </center>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Selected Courses</h2>
+      <ul id="selected-courses-list"></ul>
+      <p id="modal-total-amount"></p>
+      <button id="modal-next-btn">Next</button>
+      <button id="modal-edit-btn">Edit</button>
+    </div>
+  </div>
+
+
+  <script>
+    const applicantCategory = '<%= category %>'; // Access category from server
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const totalAmountElement = document.getElementById('total-amount');
+    const totalAmountForm = document.getElementById('total-amount-form');
+    const totalAmountInput = document.getElementById('total-amount-input');
+    const selectedCoursesInput = document.getElementById('selected-courses-input');
+    const modal = document.getElementById('myModal');
+    const modalCloseBtn = document.getElementsByClassName('close')[0];
+    const modalNextBtn = document.getElementById('modal-next-btn');
+    const modalEditBtn = document.getElementById('modal-edit-btn');
+    const selectedCoursesList = document.getElementById('selected-courses-list');
+    const modalTotalAmount = document.getElementById('modal-total-amount');
+
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', () => {
+        const selectedCourses = document.querySelectorAll('input[type="checkbox"]:checked');
+        let coursePrice = applicantCategory === 'General' ? 1000 : 500; // Determine course price based on category
+        let newTotalAmount = 0;
+  
+        const selectedCoursesData = []; // Array to store selected courses data
+        
+        selectedCoursesList.innerHTML = ''; // Clear previous selections
+        for (let i = 0; i < selectedCourses.length; i++) {
+          const courseName = selectedCourses[i].value;
+          let currentCoursePrice;
+
+          if (i === 0) {
+            currentCoursePrice = coursePrice; // 1000 for the first course
+          } else {
+            currentCoursePrice = 500; // 500 for the rest
+          }
+
+          newTotalAmount += currentCoursePrice;
+          selectedCoursesData.push({ name: courseName, amount: currentCoursePrice }); // Push course data to array
+          selectedCoursesList.innerHTML += `<li>${courseName}</li>`;
+        }
+  
+        totalAmountElement.textContent = `Total Application Fee: ₹ ${newTotalAmount}`;
+        totalAmountInput.value = newTotalAmount; // Set the total amount value in the hidden input field
+        selectedCoursesInput.value = JSON.stringify(selectedCoursesData); // Set the selected courses as a JSON string
+  
+        // Console log selected courses data
+        console.log(selectedCoursesData);
+      });
+    });
+  
+    // Show modal when "Proceed" button is clicked
+    const proceedButton = document.getElementById('proceed-btn');
+    proceedButton.addEventListener('click', () => {
+      modal.style.display = 'block';
+      modalTotalAmount.textContent = `Total Application Fee: ₹ ${totalAmountInput.value}`;
+    });
+  
+    // Close modal when the close button is clicked
+    modalCloseBtn.onclick = function() {
+      modal.style.display = 'none';
+    };
+  
+    // Handle "Next" button click inside modal
+    modalNextBtn.addEventListener('click', () => {
+      // Submit the form
+      totalAmountForm.submit(); 
+    });
+  
+    // Handle "Edit" button click inside modal
+    modalEditBtn.addEventListener('click', () => {
+      modal.style.display = 'none'; // Hide modal
+    });
+  
+    // Close modal if user clicks outside of it
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    };
+  </script>
+</body>
+</html>
+
+<%- include("footer.ejs") %>

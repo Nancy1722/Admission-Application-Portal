@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Fees Payment</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .header {
+        background-color: #123;
+        color: #fff;
+        text-align: center;
+        padding: 20px 0;
+    }
+    .logo {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .logo img {
+        max-width: 100px;
+        max-height: 130px;
+    }
+    .container {
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    label {
+        font-weight: bold;
+    }
+    select, input[type="text"], input[type="number"], input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box;
+    }
+    input[type="submit"] {
+        background-color: #4c8caf;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #4577a0;
+    }
+    .selected-course {
+        margin-bottom: 10px;
+    }
+    .error-message {
+        color: red;
+        margin-top: 5px;
+    }
+    .payment-methods {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .payment-methods img {
+        width: 50px;
+        margin: 0 10px;
+    }
+</style>
+</head>
+<body>
+<div class="header">
+    <div class="logo">
+        <img src="/images/logo.png" alt="Logo">
+    </div>
+</div>
+<div class="container">
+    <form id="paymentForm" method="post" action="/pay_course">
+        <div class="selected-course" id="selectedCourse"></div>
+        <label for="amount">Total Amount to Pay:</label>
+        <input type="number" id="amount" name="amount" value="<%= total_amount %>" min="0" required readonly>
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="cardNumber">Card Number:</label>
+        <input type="text" id="cardNumber" name="cardNumber" placeholder="XXXX-XXXX-XXXX-XXXX" required>
+        <label for="expiry">Expiration Date:</label>
+        <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
+        <label for="cvv">CVV:</label>
+        <input type="number" id="cvv" name="cvv" min="100" max="999" required>
+        
+        <input type="submit" value="Pay Now">
+        <div class="error-message" id="errorMessage"></div>
+    </form>
+    <div class="payment-methods">
+        <img src="/images/visa.png" alt="Visa">
+        <img src="/images/upi.png" alt="UPI">
+    </div>
+</div>
+
+<script>
+    function validateForm() {
+        var course = document.getElementById('course').value;
+        var amount = document.getElementById('amount').value;
+        if (course === "") {
+            document.getElementById('errorMessage').innerText = "Please select a course";
+            return false;
+        }
+        if (amount <= 0) {
+            document.getElementById('errorMessage').innerText = "Please enter a valid amount";
+            return false;
+        }
+        return true;
+    }
+    
+</script>
+</body>
+</html>

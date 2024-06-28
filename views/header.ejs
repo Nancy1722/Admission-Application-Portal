@@ -1,0 +1,17 @@
+<div class="navbar">
+    <a href="#" class="navbar-brand">
+        <img src="/images/logo.png" alt="log"> Fergusson College
+    </a>
+    <div class="navbar-menu">
+        <a href="/">Home</a>
+        <% if (!loggedIn) { %>
+            <a href="/Login">Login</a>
+        <% } %>
+        <a href="/Notice">Notice</a>
+        <a href="/Admission">Admission</a>
+        <a href="/About">About</a>
+        <% if (loggedIn) { %>
+            <a href="/logout">Logout</a>
+        <% } %>
+    </div>
+</div>

@@ -1,0 +1,193 @@
+<%- include("header.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles/navbar.css">
+  <title>Personal Information</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .info-item {
+      margin-bottom: 15px;
+    }
+    .info-item label {
+      font-weight: bold;
+    }
+    
+    .info-item input[type="text"],
+    .info-item input[type="date"],
+    
+    .info-item select {
+      width: calc(30% - 24px);
+      padding: 8px;
+      margin: 20px;
+      margin-bottom: 5px;
+      border: 1px solid #bbb8b8;
+      border-radius: 4px;
+      
+      
+      gap: 10px;
+    }
+
+
+.grid-item1 {
+  padding-left: 40px;
+}
+
+.grid-item3 {
+  padding-left: 5px;
+}
+
+.grid-item4 {
+  padding-left: 7px;
+}
+
+
+    .btn-submit {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: rgb(0, 101, 201);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .btn-submit:hover {
+      background-color: #45a049;
+    }
+    .logo {
+        width: 80px;
+    height: 60px;
+    }
+    .flipbutton{
+        text-align:right;
+        color:black;
+        text-decoration:none;
+        size: 10px;
+    }
+    .flipbutton:hover {
+      color : #727272;
+    }
+  </style>
+</head>
+<body background="/images/fergusson.jpg">
+<form action="/personal_info" method="post">
+<div class="container">
+
+  <h1><b><img class="logo" src="/images/logo.png">Fergusson College</b></h1>
+  <h3> <a class="flipbutton" href="#">Personal Details <a class="flipbutton" href="#"></a></h3>
+  <div class="info-item">
+    <label for="firstname" class="grid-item">First Name:</label>
+    <input type="text" id="firstname" name="firstname" placeholder="Enter your first name">
+    <label for="fathername" class="grid-item1">Middle Name:</label>
+    <input type="text" id="middlename" name="middlename" placeholder="Enter middle name">
+  </div>
+
+  <!-- <div class="info-item">
+    <label for="fathername">Father's Name:</label>
+    <input type="text" id="fathername" placeholder="Enter father's name">
+  </div> -->
+  <div class="info-item">
+    <label for="mothername" class="grid-item">Last Name:</label>
+    <input type="text" id="Lastname" name="lastname" placeholder="Enter Last name">
+    <label for="mothername"class="grid-item1" >Mother's Name:</label>
+    <input type="text" id="mothername" name="mothername" placeholder="Enter mother's name">
+</div>
+<div class="info-item">
+    <label for="aadhar" class="grid-item">Aadhar Number:</label>
+    <input type="text" id="aadhar"  name= "aadhar" placeholder="Enter Aadhar number" pattern="[0-9]{12}" required>
+    <label for="fullname" class="grid-item2">Gender</label>
+    <input type="text" id="gender" name="gender" placeholder="Enter your gender">
+</div>
+<div class="info-item">
+    <label for="phone" class="grid-item">Phone Number:</label>
+    <input type="text" id="phone" name="phone" placeholder="Enter phone number" pattern="[0-9]{10}" required>
+    <label for="dob" class="grid-item3">Date of Birth:</label>
+    <input type="date" id="dob" name="dob" max="2006-12-31">
+ </div>
+
+ 
+ <div class="info-item">
+    <label for="address" class="grid-item">Address line 1:</label>
+    <input type="text" id="address" name="address1" placeholder="Enter your address">
+    <label for="city" class="grid-item4">City:</label>
+    <input type="text" id="city" name="city" placeholder="Enter your city">
+</div>
+<div class="info-item">
+    <label for="address" class="grid-item">Address line 2:</label>
+    <input type="text" id="address" name="address2" placeholder="Enter your address">
+    <label for="state" class="grid-item3">State:</label>
+    <select id="state" name="state">
+      <option value="">Select your state</option>
+      <option value="AN">Andaman and Nicobar Islands</option>
+      <option value="AP">Andhra Pradesh</option>
+      <option value="ArP">Arunachal Pradesh</option>
+      <option value="Assam">Assam</option>
+      <option value="Bihar">Bihar</option>
+      <option value="Chandigarh">Chandigarh</option>
+      <option value="Chhattisgarh">Chhattisgarh</option>
+      <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+      <option value="Daman and Diu">Daman and Diu</option>
+      <option value="Delhi">Delhi</option>
+      <option value="Goa">Goa</option>
+      <option value="Gujarat">Gujarat</option>
+      <option value="Haryana">Haryana</option>
+      <option value="Himachal Pradesh">Himachal Pradesh</option>
+      <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+      <option value="Jharkhand">Jharkhand</option>
+      <option value="Karnataka">Karnataka</option>
+      <option value="Kerala">Kerala</option>
+      <option value="Ladakh">Ladakh</option>
+      <option value="Lakshadweep">Lakshadweep</option>
+      <option value="MP">Madhya Pradesh</option>
+      <option value="Maharashtra">Maharashtra</option>
+      <option value="Manipur">Manipur</option>
+      <option value="Meghalaya">Meghalaya</option>
+      <option value="Mizoram">Mizoram</option>
+      <option value="Nagaland">Nagaland</option>
+      <option value="Odisha">Odisha</option>
+      <option value="Puducherry">Puducherry</option>
+      <option value="Punjab">Punjab</option>
+      <option value="Rajasthan">Rajasthan</option>
+      <option value="Sikkim">Sikkim</option>
+      <option value="Tamil Nadu">Tamil Nadu</option>
+      <option value="Telangana">Telangana</option>
+      <option value="Tripura">Tripura</option>
+      <option value="UP">Uttar Pradesh</option>
+      <option value="Uttarakhand">Uttarakhand</option>
+      <option value="West Bengal">West Bengal</option>
+    </div>
+    </select>
+  </div>
+  
+  
+  <button class="btn-submit" type="submit">Submit</button>
+</div>
+</form>
+
+
+</body>
+</html>
+<%- include("footer.ejs") %>

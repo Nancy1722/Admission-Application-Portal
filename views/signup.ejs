@@ -1,0 +1,243 @@
+<%- include("header.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<title>Student Login</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/styles/navbar.css">
+
+
+<style>
+
+
+
+
+
+
+* {
+  box-sizing: border-box;
+}
+
+/* Add padding to containers */
+.container {
+  width: 50%; /* Adjust width as needed */
+  margin: 50px auto; /* Center the container horizontally */
+  padding: 20px;
+  /* Gradient background */
+  border-radius: 10px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25); /* Add a shadow for depth */
+  color: white; /* Make the text color white for better readability */
+  height: auto; /* Let the container height adjust automatically based on content */
+  background-color: rgba(255, 255, 255, 0.8);
+}
+.input-group {
+  margin-bottom: 20px;
+}
+
+h3{
+  padding-bottom: 5px;
+  color:black
+}
+
+body {
+        background-size: cover;
+        background-position: center;
+    }
+
+/* Full-width input fields */
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 30px;
+}
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+.logo {
+        width: 70px;
+    height: 50px;
+    }
+
+
+/* Style the input fields */
+input[type="email"],
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box; /* Include padding in width calculation */
+  border: 1px solid #4f0707;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Style the submit and reset buttons */
+
+
+/* Full-width input fields */
+/* Overwrite default styles of hr */
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+.logo {
+        width: 70px;
+    height: 50px;
+    }
+
+    .wrapper{
+      display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reset{
+  position: absolute;
+  padding-top: 45px;
+  padding-right:500px;
+}
+button {
+  font-family: 'Ubuntu', sans-serif;
+  width: 170px;
+  height: 40px;
+  line-height: 1;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border: 3px solid #8C82FC;
+  background: #fff;
+  color: #8C82FC;
+  border-radius: 40px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all .35s;
+  margin-right: 20px; /* Adjust as needed */
+}
+
+button:hover {
+  background: #8C82FC;
+  color: #fff;
+}
+
+/* Add this to your CSS */
+.btn-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button span{
+  opacity: 1;
+  visibility: visible;
+  transition: all .35s;
+}
+
+.success{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 50%;
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: all .35s;
+}
+
+.success svg{
+  width: 20px;
+  height: 20px;
+  fill: yellowgreen;
+  transform-origin: 50% 50%;
+  transform: translateY(-50%) rotate(0deg) scale(0);
+  transition: all .35s;
+}
+
+button.is_active{
+  width: 40px;
+  height: 40px;
+}
+
+button.is_active .success{
+  opacity: 1;
+  visibility: visible;
+}
+
+button.is_active .success svg{
+  margin-top: 50%;
+  transform: translateY(-50%) rotate(720deg) scale(1);
+}
+
+button.is_active span{
+  opacity: 0;
+  visibility: hidden;
+}
+
+</style>
+</head>
+<body background="/images/fergusson.jpg" >
+
+
+
+   <form  action= "http://localhost:8800/signup/auth" method=post id="signupForm" >
+   
+   <div class="container">
+  <center> <img class="logo" id="sign-up-form" src="/images/logo.png" ><b><h3>Sign up</h3></b></center>
+  
+   
+   
+
+    <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+      <input id="email" type="email" class="form-control" name="email" placeholder="Enter Your Email" required  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+    </div>
+<br>
+       <div class="input-group">
+         <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+         <input id="pno" type="text" class="form-control" name="pno" placeholder="Enter Your Phone number" required  pattern="[0-9]{10}">
+       </div> 
+   <br>
+   
+   
+   
+   
+       <div class="input-group">
+         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+         <input id="password" type="password" class="form-control" name="password" placeholder="Password" required >
+       </div>
+   <br>
+   <div class="input-group">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+    <input id="confirm_password" type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required >
+  </div>
+  
+    <div class="wrapper">
+      <button type="submit" class="submit" id ="submitBtn">
+        <span>Submit</span>
+        <div class="success">
+          <svg xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"  viewBox="0 0 29.756 29.756" style="enable-background:new 0 0 29.756 29.756;" xml:space="preserve">
+            <path d="M29.049,5.009L28.19,4.151c-0.943-0.945-2.488-0.945-3.434,0L10.172,18.737l-5.175-5.173   c-0.943-0.944-2.489-0.944-3.432,0.001l-0.858,0.857c-0.943,0.944-0.943,2.489,0,3.433l7.744,7.752   c0.944,0.943,2.489,0.943,3.433,0L29.049,8.442C29.991,7.498,29.991,5.953,29.049,5.009z"/>
+          </svg>
+        </div>
+      </button>
+      <button id="reset" type="reset" >Reset</button>
+    </div>
+  </div>
+        
+     
+  
+</form>
+
+
+</body>
+</html>
+
+<%- include("footer.ejs") %>
