@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Show Applicants</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h2><b><center>Manage Applicants</center></b></h2>
+<table id="Table">
+    <thead>
+        <tr><b>
+            <th class="user_id">Applicant ID</th>
+            <th class="faculty_name">Name</th>
+            <th class="name">Course Name</th>
+            <th class="email">Email-id</th>
+            <th class="user_id">Transaction ID</th>
+            <th class="fees">Fees (paid/unpaid) </th>
+            <th class="action">Action</th></b>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <button class="edit-button" onclick="editDepartment(this)">
+                    <img src="tick.png" alt="">
+                </button>
+                <button class="no-edit-button" onclick="doNotEditDepartment(this)">
+                    <img src="cross.png" alt="">
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <button class="edit-button" onclick="editDepartment(this)">
+                    <img src="tick.png" alt="">
+                </button>
+                <button class="no-edit-button" onclick="doNotEditDepartment(this)">
+                    <img src="cross.png" alt="">
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <button class="edit-button" onclick="editDepartment(this)">
+                    <img src="tick.png" alt="">
+                </button>
+                <button class="no-edit-button" onclick="doNotEditDepartment(this)">
+                    <img src="cross.png" alt="">
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <button class="edit-button" onclick="editDepartment(this)">
+                    <img src="tick.png" alt="">
+                </button>
+                <button class="no-edit-button" onclick="doNotEditDepartment(this)">
+                    <img src="cross.png" alt="">
+                </button>
+            </td>
+        </tr>
+    
+    </tbody>
+</table>
+
+<script>
+
+    function editDepartment(button) {
+  
+        alert("Editing department");
+    }
+
+    function doNotEditDepartment(button) {
+      
+        alert("Not editing department");
+    }
+</script>
+
+</body>
+</html>
