@@ -1,0 +1,63 @@
+body{
+    
+
+background-size: cover !important;
+background-position: center;
+background-repeat: no-repeat;
+margin: 0;}
+table {
+    width: 85%;
+    border-collapse: collapse; 
+    margin-left: 75px;
+}
+
+th, td {
+    border: 1px solid #6e6969;
+    padding: 8px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    margin: 20px;
+}
+th {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+.edit-button, .no-edit-button {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.edit-button img, .no-edit-button img {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+.name {
+   width: 25%;
+}
+.dept_id{
+    width: 15%;
+}
+.inst_id{
+    width: 15%;
+}
+.action{
+    width: 15%;
+}
+
+.address {
+    width: 20px;
+}
+.location {
+    width: 15%;
+}
+
+.course_id, .user_id{
+    width: 15%;
+}
+
+.email{
+    width: 20%;
+}
+
+.faculty_name{
+    width: 20%;
+}

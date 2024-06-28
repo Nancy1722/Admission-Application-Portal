@@ -1,0 +1,45 @@
+.card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    width: calc(40% - 20px); /* Two cards per line with margin */
+    display: inline-block;
+    box-sizing: border-box;
+  }
+  .card label {
+    cursor: pointer;
+    text-align: center;
+  }
+
+  button {
+    background-color: #04AA6D; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    }
+  
+    #science-courses-container {
+        padding-left: 300px;
+    }
+  
+    #art-courses-container {
+      padding-left: 300px;
+    }
+    
+    h1,h3{
+      color: rgb(84, 84, 84);
+      padding-left: 45px;
+    }
+
+    h2{
+      text-align: center;
+    }
+
+    
+
