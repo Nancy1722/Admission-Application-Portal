@@ -1,0 +1,109 @@
+<%- include("navbar") %>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Management</title>
+<link rel="stylesheet" href="/styles/styles.css">
+<link rel="stylesheet" href="/styles/search.css">
+<style>
+    /* General styles */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+        color: #333;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    h2 {
+        margin-top: 50px;
+        text-align: center;
+        color: #007bff;
+    }
+
+    /* Table styles */
+    table {
+        width: 1000px;
+        border-collapse: collapse;
+        margin-top: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    th,td{ border: #333 2px solid;
+        padding: 12px;
+        text-align: left;
+       
+    }
+   
+    th.course_id {
+        width: 50%;
+    }
+    th.course_name {
+        width: 50%;
+    }
+    tbody tr:nth-child(even) {
+        background-color: #f8f9fa;
+    }
+    tbody tr:hover {
+        background-color: #e9ecef;
+    }
+    </style>
+</head>
+<body>
+<h2 style="margin-top: 100px;"><b><center>View Course</center></b></h2>
+<div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search by Course Name"> <!-- New input for course name -->
+    <button onclick="search()">Search</button>
+</div>
+<table id="Table">
+    
+    <thead>
+        <tr><b>
+            <th class="dept_name">Department NAme</th>
+            <th class="course_id">Course ID</th>
+            <th class="course_name">Course Name</th>
+          
+        </tr>
+    </thead>
+    <tbody>
+        <% departments.forEach(function(row) { %>
+            <tr id="row_<%= row.dept_id %>">
+                <td><%= row.department_name %></td>
+                <td><%= row.course_id %></td>
+                <td><%= row.course_name %></td>
+            
+            </tr>
+            <% }); %>
+        </tbody>
+    
+    </tbody>
+</table>
+
+
+</body>
+<script> function search() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("Table");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2]; // Column index for Name
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}</script>
+</html>

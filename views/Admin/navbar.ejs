@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar</title>
+    <style>
+      
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            
+            background-color: #333;
+            color: #fff;
+            position:fixed;
+            top:0;
+            left:0;
+            width: 100%;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 50px;
+        }
+        .logo1 {
+            display: flex;
+            align-items: center;
+        }
+        .logo1 img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        .college-name {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        ul li {
+            margin-right: 20px;
+            position: relative;
+        }
+        ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        ul li ul {
+            display: none;
+            position: absolute;
+            background-color: #444;
+            padding: 20px;
+            top: 100%;
+            left: 0;
+        }
+        ul li:hover ul {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo1">
+            <img src="/images/logo.png" alt="Logo">
+            <span class="college-name">Fergusson College</span>
+        </div>
+        <ul>
+            <li><a href="/Admin">Home</a></li>
+           <li> <% if (!loggedIn) { %>
+                <a href="/Admin/Login">Login</a>
+            <% } %></li>
+            <li><a href="/Admin/Dashboard">Dashboard</a></li>
+        
+            <li>
+                <a href="#">Department</a>
+                <ul>
+                    <li><a href="/Admin/show_department">Show Departments</a></li><br>
+            
+                    <li><a href="/Admin/show_course">Show Courses</a></li><br>
+
+                    <li><a href="/Admin/eligible_course">Show Eligibile Courses</a></li><br>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Application</a>
+                <ul>
+        
+                    <li><a href="/Admin/show_applicants">Show Application Forms</a></li><br>
+                </ul>
+            </li>
+            <li>
+            <% if (loggedIn) { %>
+                <a href="/Admin/logout">Logout</a>
+            <% } %></li>
+        </ul>
+    </nav>
+</body>
+</html>

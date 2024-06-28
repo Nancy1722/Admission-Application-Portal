@@ -1,0 +1,85 @@
+
+<%- include("navbar") %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Show Applicants</title>
+<link rel="stylesheet" href="/styles/styles.css">
+<link rel="stylesheet" href="/styles/search.css">
+<style>
+    th,td{ border: #333 2px solid;
+        padding: 12px;
+        text-align: left;
+       
+    }</style>
+</head>
+<body>
+    
+<h2 style="margin-top: 100px;"><b><center>Show Application Forms</center></b></h2>
+<div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search by Course Name"> 
+    <!-- New input for course name -->
+    <button onclick="search()">Search</button>
+</div>
+<br>
+<table id="Table" >
+    <thead>
+        <tr>
+            <th class="user_id">User ID</th>
+            <th class="Applicant">Name</th>
+            <th class="name">Course Name</th>
+            <th class="email">Email ID</th>
+            <th class="Applicant">Application ID</th>
+            <th class="fees">Fees (Paid/Unpaid)</th>
+            <th class="fees">Form Status</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        <% applicants.forEach(applicant => { %>
+            <tr>
+                <td><%= applicant.user_id %></td>
+                <td><%= applicant.full_name %></td>
+                <td><%= applicant.course_applied %></td>
+                <td><%= applicant.email %></td>
+                <td><%= applicant.application_id %></td>
+                <td><%= applicant.payment_status ? 'Paid' : 'Unpaid' %></td>
+                <td>
+                    <%= applicant.payment_gateway %>
+                </td>
+                
+                
+
+               
+            </tr>
+        <% }); %>
+    </tbody>
+</table>
+
+
+
+</body>
+<script>
+     function search() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("Table");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2]; // Column index for Name
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+</html>

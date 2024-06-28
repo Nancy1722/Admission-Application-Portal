@@ -1,0 +1,94 @@
+<%- include("navbar.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/images/fergusson.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .container {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            /* Adding opacity to make the container more readable */
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 100px;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 60px;
+            padding-left: 35%;
+        }
+        
+        input[type="text"],
+        input[type="password"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #4c84af;
+            outline: none;
+        }
+        
+        input[type="submit"] {
+            background-color: #4c84af;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        
+        label {
+            font-weight: bold;
+        }
+        
+        h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="/images/logo.png" alt="Logo" style="width: 70%; max-width: 80px; display: block; margin: 0 auto 20px;">
+        <h2>Admin Login</h2>
+
+        <form id="loginForm" action="/admin/login/auth" method="post">
+
+
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            <input type="submit" value="Login">
+
+        </form>
+    </div>
+   
+</body>
+
+</html>
+<%- include("footer.ejs") %>
