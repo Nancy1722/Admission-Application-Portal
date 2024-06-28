@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/navbar.css">
+    <title>Reset Password</title>
+    <%- include('../header') %>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #5c6bc0;
+            color: white;
+            cursor: pointer;
+            margin-right: 10px; /* Add margin to separate the buttons */
+        }
+
+        button[type="submit"]:hover {
+            background-color: #32408f;
+        }
+
+        .resend-button { /* Add styles for the resend button */
+            padding: 10px 20px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #5c6bc0;
+            cursor: pointer;
+        }
+
+        .resend-button:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+  <% if (error) { %>
+    
+    <%= error %>
+ 
+<% } %>
+
+<div class="container">
+    <h1>Reset Password</h1>
+    <form id="resetPasswordForm" action="/reset-password" method="POST">
+        <div class="form-group">
+            <label for="otp">OTP:</label>
+            <input type="text" id="otp" name="otp" placeholder="Enter OTP" required>
+        </div>
+        <div class="form-group">
+            <label for="newPassword">New Password:</label>
+            <input type="password" id="newPassword" name="newPassword" placeholder="Enter new password" required>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm new password" required>
+        </div>
+        <button type="submit">Reset Password</button>
+        <a href="/resend-otp" class="resend-button">Resend OTP</a> <!-- Add the resend button -->
+    </form>
+</div>
+<%- include('../footer') %>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar</title>
+    <style>
+        /* Basic styling for demonstration purposes */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        .college-name {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        ul li {
+            margin-right: 20px;
+            position: relative;
+        }
+        ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        ul li ul {
+            display: none;
+            position: absolute;
+            background-color: #444;
+            padding: 20px;
+            top: 100%;
+            left: 0;
+        }
+        ul li:hover ul {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+            <span class="college-name">Fergusson College</span>
+        </div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Dashboard</a></li>
+            <li>
+                <a href="#">Department</a>
+                <ul>
+                    <li><a href="#">Add Department</a></li><br>
+                    <li><a href="#">Manage Departments</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Applicant</a>
+                <ul>
+                    <li><a href="#">New Applicants</a></li><br>
+                    <li><a href="#">Approved Applicants</a></li><br>
+                    <li><a href="#">Remove Applicants</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Faculty</a>
+                <ul>
+                    <li><a href="#">Add faculty</a></li><br>
+                    <li><a href="#">Remove Faculty</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</body>
+</html>
